@@ -1,0 +1,78 @@
+---
+title: "Discriminant analysis"
+author: "Wenxuan Zhang"
+date: "8/12/2018"
+contact: wz2270@columbia.edu
+output: html_document
+---
+
+Discriminat Analysis is similar with linear regression, however, its response variable is categorical instead of numerical. If the response variable is binary, then it is called DFA. Discriminat Function Analysis. If the response variable has multiple category, it is called canonical variety analysis.
+
+Discriminant Analysis has been widely used in maketing analysis. However, recently, logistic regression is prefered over discriminant analysis. 
+
+Before Apply Discriminat Analysis, you should take a clear look at your data and make sure that:
+
+1. Your sample size is not too small or imbalanced if the group is 80/20, maybe logistic regression should be considered.Also, make sure that the number of observation is 5 times more than the variables. N >= 5p.
+
+2. There is no multicolinearity among explanatory variables. 
+3. There is no heteroskedasticity relation between explanatory variables and response variables.
+4. There is not any outliers as the linear discrimant analysi is suspectble to outliers.
+5. Assume all classification of depedant variable is right
+6. Assume all classfication of dependant variable is mutually exclusive
+7. No explanatory variable show no variance among rgoup
+8. All explanaroty vairiable is normally distributed.
+
+
+Even though LDA faced so many issues it is still a useful alogrithm in predicting:
+
+Bankruptcy prediction: In bankruptcy prediction based on accounting ratios and other financial variables, linear discriminant analysis was the first statistical method applied to systematically explain which firms entered bankruptcy vs. survived.
+
+Marketing: In marketing, discriminant analysis was once often used to determine the factors which distinguish different types of customers and/or products on the basis of surveys or other forms of collected data.
+
+Here are a example:
+
+```{r}
+library(car)
+# install.packages('rattle')
+wine.url<-'https://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data'
+  wine <- read.csv(wine.url, header=FALSE) 
+  colnames(wine) <- c('Type', 'Alcohol', 'Malic', 'Ash', 
+                      'Alcalinity', 'Magnesium', 'Phenols', 
+                      'Flavanoids', 'Nonflavanoids',
+                      'Proanthocyanins', 'Color', 'Hue', 
+                      'Dilution', 'Proline')
+wine$Type <- as.factor(wine$Type)
+save(wine, file="wine.Rdata", compress=TRUE)
+scatterplotMatrix(wine[2:6])
+
+```
+
+```{r}
+library(MASS)
+wine.lda <- lda(Type ~ ., data=wine)
+wine.lda
+
+```
+
+```{r}
+wine.lda.values <- predict(wine.lda)
+ldahist(data = wine.lda.values$x[,1],g=wine.lda.values$class)
+```
+```{r}
+ldahist(data = wine.lda.values$x[,2], g=wine.lda.values$class)
+
+```
+```{r}
+plot(wine.lda.values$x[,1],wine.lda.values$x[,2]) # make a scatterplot
+text(wine.lda.values$x[,1],wine.lda.values$x[,2],as.character(wine$Type),cex=0.7,pos=4,col="red") # add
+```
+```{r}
+wine.lda.values$class == wine$Type
+```
+
+# Reference 
+1. <https://www.researchoptimus.com/article/what-is-descriminant-analysis.php>
+2. <https://archive.ama.org/archive/ResourceLibrary/MarketingResearch/documents/6896090.pdf>
+3. <https://www.slideshare.net/amritashishbagchi/discriminant-analysis-30449666>
+4. <https://www.slideshare.net/FarzanMadadizadeh/discriminant-analysis-56737352>
+5. <https://rpubs.com/gabrielmartos/discriminantR>
