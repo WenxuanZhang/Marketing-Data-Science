@@ -154,3 +154,5 @@ better. Difference of 10 or more is large.
 2. <https://en.wikipedia.org/wiki/Factor_analysis>
 3. <https://www.statmethods.net/advstats/factor.html>
 4. <https://en.wikipedia.org/wiki/Confirmatory_factor_analysis>
+5.<https://www.cscu.cornell.edu/news/Handouts/SEM_fit.pdf>
+6. <https://people.ucsc.edu/~zurbrigg/psy214b/09SEM5a.pdf>

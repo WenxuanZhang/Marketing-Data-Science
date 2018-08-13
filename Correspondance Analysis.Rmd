@@ -1,0 +1,28 @@
+---
+title: "Correspondence analysis"
+author: "Wenxuan Zhang"
+date: "8/12/2018"
+contact: wz2270@columbia.edu
+output: html_document
+---
+
+Correspondence Analysis is similar with the PCA analysis, however, the difference is that correspoondence analysis is used when the response variable is categorical data.
+
+With correspondence analysis, we could reduce the multiple variable two-way contigency table into two way visual. 
+```{r}
+
+library(ca)
+data("smoke")
+ca(smoke)
+plot(ca(smoke, supcol = 1))
+plot.ca(ca(smoke, supcol = 1))
+plot(ca(smoke), mass = TRUE, contrib = "absolute",
+map = "rowgreen", arrows = c(FALSE, TRUE))
+
+```
+
+# Reference 
+1. <https://en.wikipedia.org/wiki/Correspondence_analysis>
+2. <http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/113-ca-correspondence-analysis-in-r-essentials/>
+3. <https://www.researchgate.net/profile/Byron_Sharp/publication/260554970_Practical_Applications_of_Correspondence_Analysis_to_Categorical_Data_in_Market_Research/links/5498b4e70cf2519f5a1de89b/Practical-Applications-of-Correspondence-Analysis-to-Categorical-Data-in-Market-Research.pdf>
+4. <http://marketing-bulletin.massey.ac.nz/V14/MB_V14_T2_Bendixen.pdf>
